@@ -1,30 +1,29 @@
 {% set name = "opentelemetry-instrumentation-tornado" %}
-{% set version = "0.36b0" %}
+{% set version = "0.64b0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_instrumentation_tornado-{{ version }}.tar.gz
-  sha256: 5bd54a77c67f94e7aebb71b32448ebdbb21571881633f8fa33a42b3f958daf44
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_instrumentation_tornado-{{ version }}.tar.gz
+  sha256: a5f4da8a626859dc509529312f6478de8a6db572345d95e578ab9533f8a0dd58
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
-    - python >=3.7
+    - python
     - pip
     - hatchling
   run:
-    - python >=3.7
+    - python
     - opentelemetry-api >=1.12,<2.dev0
-    - opentelemetry-instrumentation ==0.36b0
-    - opentelemetry-semantic-conventions ==0.36b0
-    - opentelemetry-util-http ==0.36b0
+    - opentelemetry-instrumentation ==0.64b0
+    - opentelemetry-semantic-conventions ==0.64b0
+    - opentelemetry-util-http ==0.64b0
 
 test:
   imports:
@@ -34,13 +33,21 @@ test:
     - pip check
   requires:
     - pip
+    - python
 
 about:
   home: https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-tornado
   summary: Tornado instrumentation for OpenTelemetry
+  description: Tornado instrumentation for OpenTelemetry
   license: Apache-2.0
   license_file: LICENSE
+  license_family: APACHE
+  dev_url: https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-tornado
+  doc_url: https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/tornado/tornado.html
 
 extra:
   recipe-maintainers:
+    - rxm7706
     - mariusvniekerk
+  skip-lints:
+    - documentation_specifies_language
